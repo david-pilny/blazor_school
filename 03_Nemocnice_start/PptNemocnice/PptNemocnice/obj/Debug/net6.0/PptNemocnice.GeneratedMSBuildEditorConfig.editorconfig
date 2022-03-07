@@ -1,0 +1,55 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = false
+build_property.PlatformNeutralAssembly = 
+build_property._SupportedPlatformList = browser
+build_property.EnableSingleFileAnalyzer = 
+build_property.EnableTrimAnalyzer = true
+build_property.IncludeAllContentForSelfExtract = 
+build_property.RootNamespace = PptNemocnice
+build_property.RootNamespace = PptNemocnice
+build_property.ProjectDir = /Users/davidpilny/Projects/CSharpProjects/Blazor_School/Cviceni_3/ppt_22/03_Nemocnice_start/PptNemocnice/PptNemocnice/
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = /Users/davidpilny/Projects/CSharpProjects/Blazor_School/Cviceni_3/ppt_22/03_Nemocnice_start/PptNemocnice/PptNemocnice
+build_property._RazorSourceGeneratorDebug = 
+
+[/Users/davidpilny/Projects/CSharpProjects/Blazor_School/Cviceni_3/ppt_22/03_Nemocnice_start/PptNemocnice/PptNemocnice/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/davidpilny/Projects/CSharpProjects/Blazor_School/Cviceni_3/ppt_22/03_Nemocnice_start/PptNemocnice/PptNemocnice/Pages/Counter.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ291bnRlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/davidpilny/Projects/CSharpProjects/Blazor_School/Cviceni_3/ppt_22/03_Nemocnice_start/PptNemocnice/PptNemocnice/Pages/Equipment.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXF1aXBtZW50LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/davidpilny/Projects/CSharpProjects/Blazor_School/Cviceni_3/ppt_22/03_Nemocnice_start/PptNemocnice/PptNemocnice/Pages/FetchData.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRmV0Y2hEYXRhLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/davidpilny/Projects/CSharpProjects/Blazor_School/Cviceni_3/ppt_22/03_Nemocnice_start/PptNemocnice/PptNemocnice/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/davidpilny/Projects/CSharpProjects/Blazor_School/Cviceni_3/ppt_22/03_Nemocnice_start/PptNemocnice/PptNemocnice/Shared/SurveyPrompt.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL1N1cnZleVByb21wdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/davidpilny/Projects/CSharpProjects/Blazor_School/Cviceni_3/ppt_22/03_Nemocnice_start/PptNemocnice/PptNemocnice/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/davidpilny/Projects/CSharpProjects/Blazor_School/Cviceni_3/ppt_22/03_Nemocnice_start/PptNemocnice/PptNemocnice/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL01haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-be05vm4zlz
+
+[/Users/davidpilny/Projects/CSharpProjects/Blazor_School/Cviceni_3/ppt_22/03_Nemocnice_start/PptNemocnice/PptNemocnice/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL05hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-mtb0sz6y8i

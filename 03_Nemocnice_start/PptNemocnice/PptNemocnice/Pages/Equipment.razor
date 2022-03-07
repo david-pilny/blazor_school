@@ -1,0 +1,246 @@
+﻿@page "/vybaveni"
+
+<style>
+    .button-24 {
+        background: #FF4742;
+        border: 1px solid #FF4742;
+        border-radius: 6px;
+        box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+        box-sizing: border-box;
+        color: #FFFFFF;
+        cursor: pointer;
+        display: inline-block;
+        font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+        font-size: 16px;
+        font-weight: 800;
+        line-height: 16px;
+        min-height: 40px;
+        outline: 0;
+        padding: 12px 14px;
+        text-align: center;
+        text-rendering: geometricprecision;
+        text-transform: none;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        vertical-align: middle;
+    }
+
+        .button-24:hover,
+        .button-24:active {
+            background-color: initial;
+            background-position: 0 0;
+            color: #FF4742;
+        }
+
+        .button-24:active {
+            opacity: .5;
+        }
+
+    .button-25 {
+        background: #5F85FF;
+        border: 1px solid #5F85FF;
+        border-radius: 6px;
+        box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+        box-sizing: border-box;
+        color: #FFFFFF;
+        cursor: pointer;
+        display: inline-block;
+        font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+        font-size: 16px;
+        font-weight: 800;
+        line-height: 16px;
+        min-height: 40px;
+        outline: 0;
+        padding: 12px 14px;
+        text-align: center;
+        text-rendering: geometricprecision;
+        text-transform: none;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        vertical-align: middle;
+    }
+
+        .button-25:hover,
+        .button-25:active {
+            background-color: initial;
+            background-position: 0 0;
+            color: #5F85FF;
+        }
+
+        .button-25:active {
+            opacity: .5;
+        }
+    /* CSS */
+    .button-38 {
+        background-color: #FFFFFF;
+        border: 0;
+        border-radius: .5rem;
+        box-sizing: border-box;
+        color: #111827;
+        font-family: "Inter var",ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+        font-size: .875rem;
+        font-weight: 600;
+        line-height: 1.25rem;
+        padding: .75rem 1rem;
+        text-align: center;
+        text-decoration: none #D1D5DB solid;
+        text-decoration-thickness: auto;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        cursor: pointer;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+    .button-38:hover {
+        background-color: rgb(249,250,251);
+    }
+
+    .button-38:focus {
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+    }
+
+    .button-38:focus-visible {
+        box-shadow: none;
+    }
+</style>
+
+<PageTitle>Vybavení nemocnice</PageTitle>
+
+<div class="container">
+    <h3 class="p-3 text-center">Vybavení nemocnice</h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Název</th>
+                <th>Datum nákupu</th>
+                <th>Datum poslední revize</th>
+                <th>Potřebuje revizi?</th>
+                <th><button class="button-38" role="button" @onclick="() => AddItem(vybaveniNemocnice)">+</button></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var vybaveni in vybaveniNemocnice)
+            {
+                if (@vybaveni.LastRevisionDate.AddYears(2) <= DateTime.Today)
+                {
+                    <tr style="background-color: #FF9C9C">
+                        <td>@vybaveni.Name</td>
+                        <td>@vybaveni.BoughtDate.ToShortDateString()</td>
+                        <td>@vybaveni.LastRevisionDate.ToShortDateString()</td>
+                        <td>Ano</td>
+                        <td>
+                            <button class="button-24" role="button" @onclick="() => DeleteItem(vybaveni, vybaveniNemocnice)">Smazat</button>
+                            <button class="button-25" role="button" @onclick="() => NeedsRevision(vybaveni)">Provést revizi</button>
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <td>@vybaveni.Name</td>
+                        <td>@vybaveni.BoughtDate.ToShortDateString()</td>
+                        <td>@vybaveni.LastRevisionDate.ToShortDateString()</td>
+                        <td>Ne</td>
+                        <td>
+                            <button class="button-24" role="button" @onclick="() => DeleteItem(vybaveni, vybaveniNemocnice)">Smazat</button>
+                            <button class="button-25" role="button" @onclick="() => NeedsRevision(vybaveni)">Provést revizi</button>
+                        </td>
+                    </tr>
+                }
+
+            }
+
+        </tbody>
+    </table>
+</div>
+
+
+
+
+@code {
+    private List<VybaveniModel> vybaveniNemocnice;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        vybaveniNemocnice = new List<VybaveniModel>();
+    }
+
+    public class VybaveniModel
+    {
+        public string? Name { get; set; }
+
+        public DateTime BoughtDate { get; set; }
+
+        public DateTime LastRevisionDate { get; set; }
+
+        public bool NeedsRevision;
+
+    }
+
+    private void NeedsRevision(VybaveniModel obj)
+    {
+        obj.LastRevisionDate = DateTime.Today;
+    }
+
+    private void DeleteItem(VybaveniModel obj, List<VybaveniModel> lis)
+    {
+        lis.Remove(obj);
+    }
+
+    private void AddItem(List<VybaveniModel> lis)
+    {
+        Random random = new Random();
+
+        DateTime RandomDateOne()
+        {
+            DateTime start = new DateTime(1995, 1, 1);
+            int range = (DateTime.Today - start).Days;
+            return start.AddDays(random.Next(range));
+        }
+
+        DateTime RandomDateTwo(DateTime var)
+        {
+            int range = (DateTime.Today - var).Days;
+            return var.AddDays(random.Next(range));
+        }
+
+        int length = 16;
+        var rString = "";
+
+        for (var i = 0; i < length; i++)
+        {
+            rString += ((char)(random.Next(1, 26) + 64)).ToString().ToLower();
+        }
+
+        DateTime date1 = RandomDateOne();
+        DateTime date2 = RandomDateTwo(date1);
+
+        bool rev = false;
+
+        if (date2.AddYears(2) <= DateTime.Today)
+            {
+            rev = true;
+            }
+
+
+              lis.Add(new VybaveniModel
+              {
+                  Name = rString,
+                  BoughtDate = date1,
+                  LastRevisionDate = date2,
+                  NeedsRevision = rev
+              }
+    );
+
+    }
+
+}
+

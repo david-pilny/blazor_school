@@ -1,0 +1,36 @@
+﻿<Properties StartupConfiguration="{2CB05F03-B76C-4674-8370-3FE5154E1E53}|Default">
+  <MonoDevelop.Ide.ItemProperties.PptNemocnice PreferredExecutionTarget="/Applications/Safari.app" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workbench ActiveDocument="PptNemocnice/VybaveniModel.cs">
+    <Files>
+      <File FileName="PptNemocnice/wwwroot/index.html" Line="16" Column="26" />
+      <File FileName="PptNemocnice/Pages/Equipment.razor" Line="5" Column="1" />
+      <File FileName="PptNemocnice/VybaveniModel.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="PptNemocnice" expanded="True">
+            <Node name="PptNemocnice" expanded="True">
+              <Node name="Pages" expanded="True" />
+              <Node name="Properties" expanded="True" />
+              <Node name="Shared" expanded="True">
+                <Node name="MainLayout.razor" expanded="True" />
+              </Node>
+              <Node name="wwwroot" expanded="True" />
+              <Node name="VybaveniModel.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+</Properties>
