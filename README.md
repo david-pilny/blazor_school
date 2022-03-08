@@ -1,1 +1,1 @@
-# blazor_school change
+# blazor_school
