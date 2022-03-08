@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "zzTFmevaon49ziI79s4GdiC6Ej91PvGapiF7FHV4WfQSXw73Kwqtyr6lh4kpj5HDFTAYlkWP3tb5FRWJRLiMzg==",
+  "dgSpecHash": "Z3tL/OmQOqmTqKTBK173k32EioxW6+SFjh06RSNU5oD3YZIncqWnv/TwihBRFCy3Hat5lXEW1JYB1vhw55vxIA==",
   "success": true,
-  "projectFilePath": "/Users/davidpilny/Projects/CSharpProjects/Blazor_School/Cviceni_3/ppt_22/03_Nemocnice_start/PptNemocnice/PptNemocnice/PptNemocnice.csproj",
+  "projectFilePath": "/Users/davidpilny/Projects/CSharpProjects/Blazor_School/03_Nemocnice_start/PptNemocnice/PptNemocnice/PptNemocnice.csproj",
   "expectedPackageFiles": [
     "/Users/davidpilny/.nuget/packages/microsoft.aspnetcore.authorization/6.0.2/microsoft.aspnetcore.authorization.6.0.2.nupkg.sha512",
     "/Users/davidpilny/.nuget/packages/microsoft.aspnetcore.components/6.0.2/microsoft.aspnetcore.components.6.0.2.nupkg.sha512",

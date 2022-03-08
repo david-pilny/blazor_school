@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/davidpilny/Projects/CSharpProjects/Blazor_School/Cviceni_3/ppt_22/03_Nemocnice_start/PptNemocnice/PptNemocnice/PptNemocnice.csproj": {}
+    "/Users/davidpilny/Projects/CSharpProjects/Blazor_School/03_Nemocnice_start/PptNemocnice/PptNemocnice/PptNemocnice.csproj": {}
   },
   "projects": {
-    "/Users/davidpilny/Projects/CSharpProjects/Blazor_School/Cviceni_3/ppt_22/03_Nemocnice_start/PptNemocnice/PptNemocnice/PptNemocnice.csproj": {
+    "/Users/davidpilny/Projects/CSharpProjects/Blazor_School/03_Nemocnice_start/PptNemocnice/PptNemocnice/PptNemocnice.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/davidpilny/Projects/CSharpProjects/Blazor_School/Cviceni_3/ppt_22/03_Nemocnice_start/PptNemocnice/PptNemocnice/PptNemocnice.csproj",
+        "projectUniqueName": "/Users/davidpilny/Projects/CSharpProjects/Blazor_School/03_Nemocnice_start/PptNemocnice/PptNemocnice/PptNemocnice.csproj",
         "projectName": "PptNemocnice",
-        "projectPath": "/Users/davidpilny/Projects/CSharpProjects/Blazor_School/Cviceni_3/ppt_22/03_Nemocnice_start/PptNemocnice/PptNemocnice/PptNemocnice.csproj",
+        "projectPath": "/Users/davidpilny/Projects/CSharpProjects/Blazor_School/03_Nemocnice_start/PptNemocnice/PptNemocnice/PptNemocnice.csproj",
         "packagesPath": "/Users/davidpilny/.nuget/packages/",
-        "outputPath": "/Users/davidpilny/Projects/CSharpProjects/Blazor_School/Cviceni_3/ppt_22/03_Nemocnice_start/PptNemocnice/PptNemocnice/obj/",
+        "outputPath": "/Users/davidpilny/Projects/CSharpProjects/Blazor_School/03_Nemocnice_start/PptNemocnice/PptNemocnice/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/davidpilny/.nuget/NuGet/NuGet.Config"
