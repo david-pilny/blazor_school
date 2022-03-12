@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "tJJCcK3t+7zeYO34tKDiSNiTedtRoTTKYwewdNclgBo=",
+  "Hash": "6cFDhi/t2BX0nBxTINTDeH5atQtw6bXSIxG7L4a23ac=",
   "Source": "PptNemocnice",
   "BasePath": "/",
   "Mode": "Root",
@@ -695,6 +695,40 @@
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
       "OriginalItemSpec": "obj/Debug/net6.0/PptNemocnice.pdb"
+    },
+    {
+      "Identity": "/Users/davidpilny/Projects/CSharpProjects/Blazor_School/03_Nemocnice_start/PptNemocnice/PptNemocnice/bin/Debug/net6.0/wwwroot/_framework/PptNemocnice.Shared.dll",
+      "SourceId": "PptNemocnice",
+      "SourceType": "Computed",
+      "ContentRoot": "/Users/davidpilny/Projects/CSharpProjects/Blazor_School/03_Nemocnice_start/PptNemocnice/PptNemocnice/bin/Debug/net6.0/wwwroot/",
+      "BasePath": "/",
+      "RelativePath": "_framework/PptNemocnice.Shared.dll",
+      "AssetKind": "Build",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "BlazorWebAssemblyResource",
+      "AssetTraitValue": "runtime",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "Never",
+      "OriginalItemSpec": "/Users/davidpilny/Projects/CSharpProjects/Blazor_School/03_Nemocnice_start/PptNemocnice/PptNemocnice.Shared/bin/Debug/net6.0/PptNemocnice.Shared.dll"
+    },
+    {
+      "Identity": "/Users/davidpilny/Projects/CSharpProjects/Blazor_School/03_Nemocnice_start/PptNemocnice/PptNemocnice/bin/Debug/net6.0/wwwroot/_framework/PptNemocnice.Shared.pdb",
+      "SourceId": "PptNemocnice",
+      "SourceType": "Computed",
+      "ContentRoot": "/Users/davidpilny/Projects/CSharpProjects/Blazor_School/03_Nemocnice_start/PptNemocnice/PptNemocnice/bin/Debug/net6.0/wwwroot/",
+      "BasePath": "/",
+      "RelativePath": "_framework/PptNemocnice.Shared.pdb",
+      "AssetKind": "Build",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "BlazorWebAssemblyResource",
+      "AssetTraitValue": "symbol",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "Never",
+      "OriginalItemSpec": "/Users/davidpilny/Projects/CSharpProjects/Blazor_School/03_Nemocnice_start/PptNemocnice/PptNemocnice.Shared/bin/Debug/net6.0/PptNemocnice.Shared.pdb"
     },
     {
       "Identity": "/Users/davidpilny/Projects/CSharpProjects/Blazor_School/03_Nemocnice_start/PptNemocnice/PptNemocnice/bin/Debug/net6.0/wwwroot/_framework/System.AppContext.dll",
@@ -3791,6 +3825,23 @@
       "OriginalItemSpec": "/Users/davidpilny/Projects/CSharpProjects/Blazor_School/03_Nemocnice_start/PptNemocnice/PptNemocnice/bin/Debug/net6.0/wwwroot/_framework/System.IO.FileSystem.dll"
     },
     {
+      "Identity": "/Users/davidpilny/Projects/CSharpProjects/Blazor_School/03_Nemocnice_start/PptNemocnice/PptNemocnice/obj/Debug/net6.0/build-gz/59WLX4ZD.gz",
+      "SourceId": "PptNemocnice",
+      "SourceType": "Computed",
+      "ContentRoot": "/Users/davidpilny/Projects/CSharpProjects/Blazor_School/03_Nemocnice_start/PptNemocnice/PptNemocnice/bin/Debug/net6.0/wwwroot/",
+      "BasePath": "/",
+      "RelativePath": "_framework/PptNemocnice.Shared.dll.gz",
+      "AssetKind": "Build",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "RelatedAsset": "/Users/davidpilny/Projects/CSharpProjects/Blazor_School/03_Nemocnice_start/PptNemocnice/PptNemocnice/bin/Debug/net6.0/wwwroot/_framework/PptNemocnice.Shared.dll",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "Never",
+      "OriginalItemSpec": "/Users/davidpilny/Projects/CSharpProjects/Blazor_School/03_Nemocnice_start/PptNemocnice/PptNemocnice/bin/Debug/net6.0/wwwroot/_framework/PptNemocnice.Shared.dll"
+    },
+    {
       "Identity": "/Users/davidpilny/Projects/CSharpProjects/Blazor_School/03_Nemocnice_start/PptNemocnice/PptNemocnice/obj/Debug/net6.0/build-gz/5f1+IOns.gz",
       "SourceId": "PptNemocnice",
       "SourceType": "Computed",
@@ -5693,6 +5744,23 @@
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
       "OriginalItemSpec": "/Users/davidpilny/Projects/CSharpProjects/Blazor_School/03_Nemocnice_start/PptNemocnice/PptNemocnice/bin/Debug/net6.0/wwwroot/_framework/System.AppContext.dll"
+    },
+    {
+      "Identity": "/Users/davidpilny/Projects/CSharpProjects/Blazor_School/03_Nemocnice_start/PptNemocnice/PptNemocnice/obj/Debug/net6.0/build-gz/q1GlspFQ.gz",
+      "SourceId": "PptNemocnice",
+      "SourceType": "Computed",
+      "ContentRoot": "/Users/davidpilny/Projects/CSharpProjects/Blazor_School/03_Nemocnice_start/PptNemocnice/PptNemocnice/bin/Debug/net6.0/wwwroot/",
+      "BasePath": "/",
+      "RelativePath": "_framework/PptNemocnice.Shared.pdb.gz",
+      "AssetKind": "Build",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "RelatedAsset": "/Users/davidpilny/Projects/CSharpProjects/Blazor_School/03_Nemocnice_start/PptNemocnice/PptNemocnice/bin/Debug/net6.0/wwwroot/_framework/PptNemocnice.Shared.pdb",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "Never",
+      "OriginalItemSpec": "/Users/davidpilny/Projects/CSharpProjects/Blazor_School/03_Nemocnice_start/PptNemocnice/PptNemocnice/bin/Debug/net6.0/wwwroot/_framework/PptNemocnice.Shared.pdb"
     },
     {
       "Identity": "/Users/davidpilny/Projects/CSharpProjects/Blazor_School/03_Nemocnice_start/PptNemocnice/PptNemocnice/obj/Debug/net6.0/build-gz/Q2IKfB6r.gz",

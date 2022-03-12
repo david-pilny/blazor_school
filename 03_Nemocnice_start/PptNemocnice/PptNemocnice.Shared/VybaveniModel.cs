@@ -10,6 +10,8 @@ namespace PptNemocnice
 		public DateTime LastRevisionDate { get; set; }
 
 		public bool NeedsRevision;
+
+		public bool IsInEditMode { get; set; }
 	}
 }
 

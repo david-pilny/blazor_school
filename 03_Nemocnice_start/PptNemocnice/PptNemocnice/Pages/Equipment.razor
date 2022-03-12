@@ -1,6 +1,46 @@
 ﻿@page "/vybaveni"
 @using PptNemocnice
 
+<style>
+    /* From cssbuttons.io */
+    .button-edit {
+        background: #F0E000;
+        border: 1px solid #F0E000;
+        border-radius: 6px;
+        box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+        box-sizing: border-box;
+        color: #FFFFFF;
+        cursor: pointer;
+        display: inline-block;
+        font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+        font-size: 16px;
+        font-weight: 800;
+        line-height: 16px;
+        min-height: 40px;
+        outline: 0;
+        padding: 12px 14px;
+        text-align: center;
+        text-rendering: geometricprecision;
+        text-transform: none;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        vertical-align: middle;
+    }
+
+        .button-edit:hover,
+        .button-edit:active {
+            background-color: initial;
+            background-position: 0 0;
+            color: #F0E000;
+        }
+
+        .button-edit:active {
+            opacity: .5;
+        }
+           
+</style>
+
 <PageTitle>Vybavení nemocnice</PageTitle>
 
 <div class="container">
@@ -13,30 +53,69 @@
                 <th>Datum nákupu</th>
                 <th>Datum poslední revize</th>
                 <th>Potřebuje revizi?</th>
-                <th><button class="button-38" role="button" @onclick="() => AddItem(vybaveniNemocnice)">+</button></th>
+                <th><button class="button-38" role="button" @onclick="() => IsBeinCreated = true">+</button></th>
             </tr>
         </thead>
         <tbody>
+            @if(IsBeinCreated == true)
+            {
+            <tr>
+                <td><input @bind="CreateName" /></td>
+                <td><input @bind="CreateBoughtDate" type="date" /></td>
+                <td><input @bind="CreateRevisionDate" type="date" /></td>
+                <td>-</td>
+                <td>
+                    <button class="button-24" role="button" @onclick="() => AddItem(vybaveniNemocnice, CreateName, CreateBoughtDate, CreateRevisionDate)">Přidat</button>
+                    <button class="button-25" role="button" @onclick="() => IsBeinCreated = false">Zrušit</button>
+                </td>
+            </tr>
+            }
 
             @foreach (var vybaveni in vybaveniNemocnice)
             {
-                <tr style="@StyleForRevision(vybaveni)">
-                    <td>@vybaveni.Name</td>
-                    <td>@vybaveni.BoughtDate.ToShortDateString()</td>
-                    <td>@vybaveni.LastRevisionDate.ToShortDateString()</td>
-                    @if(vybaveni.NeedsRevision == true)
-                     {
-                        <td>Ano</td>
-                     }
-                     else
-                     {
-                        <td>Ne</td>
-                     }
+                @if (vybaveni.IsInEditMode == true)
+                {
+                    <tr>
+                        <td><input @bind="vybaveni.Name" /></td>
+                        <td><input @bind="vybaveni.BoughtDate" type="date" /></td>
+                        <td><input @bind="vybaveni.LastRevisionDate" type="date" /></td>
+                        @if (vybaveni.NeedsRevision == true)
+                        {
+                            <td>Ano</td>
+                        }
+                        else
+                        {
+                            <td>Ne</td>
+                        }
                     <td>
-                        <button class="button-24" role="button" @onclick="() => DeleteItem(vybaveni, vybaveniNemocnice)">Smazat</button>
-                        <button class="button-25" role="button" @onclick="() => NeedsRevision(vybaveni)">Provést revizi</button>
+                        <button class="button-25" role="button" @onclick="() => vybaveni.IsInEditMode = false">OK</button>
                     </td>
-                </tr>
+                    </tr>
+
+                }
+                else
+                {
+                    <tr style="@StyleForRevision(vybaveni)">
+                            <td>@vybaveni.Name</td>
+                            <td>@vybaveni.BoughtDate.ToShortDateString()</td>
+                            <td>@vybaveni.LastRevisionDate.ToShortDateString()</td>
+                            @if (vybaveni.NeedsRevision == true)
+                            {
+                                <td>Ano</td>
+                            }
+                            else
+                            {
+                                <td>Ne</td>
+                            }
+                            <td>
+                                <button class="button-24" role="button" @onclick="() => vybaveniNemocnice.Remove(vybaveni)">Smazat</button>
+                                <button class="button-25" role="button" @onclick="() => NeedsRevision(vybaveni)">Provést revizi</button>
+                                <button class="button-edit" role="button" @onclick="() => vybaveni.IsInEditMode = true">Editovat</button>
+                            </td>
+                    </tr>
+
+                }
+
             }
 
         </tbody>
@@ -46,26 +125,20 @@
 @code {
     private List<VybaveniModel> vybaveniNemocnice;
 
+    private bool IsBeinCreated = false;
+
+    private string CreateName = "";
+
+    private DateTime CreateBoughtDate = DateTime.Today;
+
+    private DateTime CreateRevisionDate = DateTime.Today;
+
     protected override void OnInitialized()
     {
         base.OnInitialized();
 
         vybaveniNemocnice = new List<VybaveniModel>();
-    }
 
-    private void NeedsRevision(VybaveniModel obj)
-    {
-        obj.LastRevisionDate = DateTime.Today;
-        obj.NeedsRevision = false;
-    }
-
-    private void DeleteItem(VybaveniModel obj, List<VybaveniModel> lis)
-    {
-        lis.Remove(obj);
-    }
-
-    private void AddItem(List<VybaveniModel> lis)
-    {
         Random random = new Random();
 
         DateTime RandomDateOne()
@@ -81,33 +154,66 @@
             return var.AddDays(random.Next(range));
         }
 
-        int length = 16;
-        var rString = "";
-
-        for (var i = 0; i < length; i++)
+        for (var j = 0; j < 6; j++)
         {
-            rString += ((char)(random.Next(1, 26) + 64)).ToString().ToLower();
+            int length = 16;
+            var rString = "";
+
+            for (var i = 0; i < length; i++)
+            {
+                rString += ((char)(random.Next(1, 26) + 64)).ToString().ToLower();
+            }
+
+            DateTime date1 = RandomDateOne();
+            DateTime date2 = RandomDateTwo(date1);
+
+            bool rev = false;
+
+            if (date2.AddYears(2) <= DateTime.Today)
+            {
+                rev = true;
+            }
+
+
+            vybaveniNemocnice.Add(new VybaveniModel
+            {
+                Name = rString,
+                BoughtDate = date1,
+                LastRevisionDate = date2,
+                NeedsRevision = rev,
+                IsInEditMode = false
+            }
+        );
+
         }
+    }
 
-        DateTime date1 = RandomDateOne();
-        DateTime date2 = RandomDateTwo(date1);
+    private void NeedsRevision(VybaveniModel obj)
+    {
+        obj.LastRevisionDate = DateTime.Today;
+        obj.NeedsRevision = false;
+    }
 
+    private void AddItem(List<VybaveniModel> lis, string name, DateTime bought, DateTime revision)
+    {
         bool rev = false;
 
-        if (date2.AddYears(2) <= DateTime.Today)
+        if (revision.AddYears(2) <= DateTime.Today)
         {
             rev = true;
         }
 
-
         lis.Add(new VybaveniModel
         {
-            Name = rString,
-            BoughtDate = date1,
-            LastRevisionDate = date2,
-            NeedsRevision = rev
+            Name = name,
+            BoughtDate = bought,
+            LastRevisionDate = revision,
+            NeedsRevision = rev,
+            IsInEditMode = false
         }
         );
+
+        IsBeinCreated = false;
 
     }
 
