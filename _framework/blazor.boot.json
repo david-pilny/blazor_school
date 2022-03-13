@@ -7,7 +7,7 @@
   "linkerEnabled": true,
   "resources": {
     "assembly": {
-      "Microsoft.AspNetCore.Components.dll": "sha256-D9UlI47bnzVZnX5rtrHQvRkNTMdjMBBpFoVc9SIzihc=",
+      "Microsoft.AspNetCore.Components.dll": "sha256-bT0NT7Ub65q2tile0CSyKMu42Dy2IO+a9U1bs4bq0B8=",
       "Microsoft.AspNetCore.Components.Web.dll": "sha256-swhllcB8+ISyD3Ea\/Bqq5pPKpxnXh369OZQx5xow18s=",
       "Microsoft.AspNetCore.Components.WebAssembly.dll": "sha256-yUU\/mWWa82QWVsGQj6w\/j4ja+GJcNtYn9qS4hbsDCPU=",
       "Microsoft.Extensions.Configuration.Abstractions.dll": "sha256-zhFtW4kE16TdrpPne9I1Cu9o0KYzrS50VE9MVSifJg4=",
@@ -21,7 +21,7 @@
       "Microsoft.Extensions.Primitives.dll": "sha256-YColTWA58whC+8aBjv1O7HgsyYrbHTba601EkNDWAlo=",
       "Microsoft.JSInterop.dll": "sha256-+GY7M29nbxOy5QeUmEhzxwnKgJIKqAAebAcieirsWs8=",
       "Microsoft.JSInterop.WebAssembly.dll": "sha256-+vVdIj7neJ+ihLFR+qU3xbNhxbIyjk4IHvJiJ3reJOs=",
-      "PptNemocnice.dll": "sha256-6A2PTy2FQWoRLqDsmrVoMUGNM4DVufXS78RfGZUWT28=",
+      "PptNemocnice.dll": "sha256-yAHAZrjVcF8eLFUoF6BG7pedOHl1eC5oZEg+AA38q3s=",
       "PptNemocnice.Shared.dll": "sha256-g0\/q+UrNL7qqxn4oRRVNielFRXGQGqrBuP2swlYWkxw=",
       "System.Collections.Concurrent.dll": "sha256-DEbtVwDE7b0SK2Ids\/SZcjV0sbbkapr+\/xiK4dBhrto=",
       "System.Collections.dll": "sha256-X3S5LpmaAxEKZ0I1Sd+fdHB42hJ\/wbhXJQ64ge1XC+k=",
@@ -34,7 +34,7 @@
       "System.Private.Runtime.InteropServices.JavaScript.dll": "sha256-X4FwXSBdWVkikLkxvYtEmjfBQBUZqo96sYI3OQsGh+g=",
       "System.Private.Uri.dll": "sha256-KzRKO0gkN\/mEdhMTZrETElr2xmpmsc\/ZlDSOvvonBrU=",
       "System.Runtime.CompilerServices.Unsafe.dll": "sha256-pboIs9f2VIFXqCFHxgzhAkwhq+Vjkbm4tbx1jlqlCAs=",
-      "System.Runtime.dll": "sha256-sHAYbK\/fLj0CSa3FJoTD1VrV+0mtBoK7bA3mpKAlsxI=",
+      "System.Runtime.dll": "sha256-sSUoj+g0Tbe\/F6K2Elql88cD0EdP6VDy714lUEUhIBY=",
       "System.Text.Encodings.Web.dll": "sha256-2bylgJUiQjpqubbK7zSJaLR20rsotQrg2r0Z9\/Mj7AE=",
       "System.Text.Json.dll": "sha256-I\/RCp3+BrLGSG+ltEHUD\/JgSvW6pW+QLz3ml7pLlhMk="
     },
