@@ -46,6 +46,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXF1aXBtZW50LnJhem9y
 build_metadata.AdditionalFiles.CssScope = b-5el28qhqzj
 
+[/Users/davidpilny/Projects/CSharpProjects/Blazor_School/03_Nemocnice_start/PptNemocnice/PptNemocnice/Pages/VybaveniRow.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVnliYXZlbmlSb3cucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-2yydqg71et
+
 [/Users/davidpilny/Projects/CSharpProjects/Blazor_School/03_Nemocnice_start/PptNemocnice/PptNemocnice/Shared/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL01haW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-be05vm4zlz

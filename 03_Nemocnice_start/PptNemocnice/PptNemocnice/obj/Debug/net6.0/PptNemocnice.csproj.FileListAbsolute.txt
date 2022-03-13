@@ -1637,3 +1637,4 @@
 /Users/davidpilny/Projects/CSharpProjects/Blazor_School/03_Nemocnice_start/PptNemocnice/PptNemocnice/bin/Debug/net6.0/PptNemocnice.Shared.pdb
 /Users/davidpilny/Projects/CSharpProjects/Blazor_School/03_Nemocnice_start/PptNemocnice/PptNemocnice/obj/Debug/net6.0/build-gz/59WLX4ZD.gz
 /Users/davidpilny/Projects/CSharpProjects/Blazor_School/03_Nemocnice_start/PptNemocnice/PptNemocnice/obj/Debug/net6.0/build-gz/q1GlspFQ.gz
+/Users/davidpilny/Projects/CSharpProjects/Blazor_School/03_Nemocnice_start/PptNemocnice/PptNemocnice/obj/Debug/net6.0/scopedcss/Pages/VybaveniRow.razor.rz.scp.css
