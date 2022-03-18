@@ -1,0 +1,123 @@
+﻿@page "/vybaveni"
+@using PptNemocnice
+
+<PageTitle>Vybavení nemocnice</PageTitle>
+
+<div class="container">
+    <h3 class="p-3 text-center">Vybavení nemocnice</h3>
+
+    <table class="table">
+
+        <thead>
+            <tr>
+                <th>Název</th>
+                <th>Datum nákupu</th>
+                <th>Datum poslední revize</th>
+                <th>Potřebuje revizi?</th>
+                <th><button class="button-38" role="button" @onclick="() => IsBeinCreated = true">+</button></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @if (IsBeinCreated == true)
+            {
+                @*
+                    <AddRow IsBeingCreatedCallback="() => IsBeinCreated = false" AddNewItem="AddNewItem" />
+                *@
+
+                VybaveniModel newModel = new VybaveniModel
+                {
+                    Name = "",
+                    BoughtDate = DateTime.Today,
+                    LastRevisionDate = DateTime.Today,
+                    NeedsRevision = false,
+                    IsInEditMode = true
+                };
+
+                <VybaveniRow EditDoneCallback="(success) => { if(success) vybaveniNemocnice.Insert(0,newModel); IsBeinCreated = false; }" Vybaveni="newModel">
+                    <button class="button-25">Přidat</button>
+                    <button type="button" @onclick="() => IsBeinCreated = false" class="button-24">Zrušit</button>
+                </VybaveniRow>
+
+
+            }
+
+            @foreach (var vybaveni in vybaveniNemocnice)
+            {
+                <VybaveniRow Vybaveni="vybaveni" DeleteItemCallback="() => vybaveniNemocnice.Remove(vybaveni)" />
+                // @vybaveni.Name
+            }
+
+        </tbody>
+
+    </table>
+</div>
+
+@code {
+    private List<VybaveniModel> vybaveniNemocnice;
+
+    private bool IsBeinCreated = false;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        vybaveniNemocnice = new List<VybaveniModel>();
+
+        Random random = new Random();
+
+        DateTime RandomDateOne()
+        {
+            DateTime start = new DateTime(1995, 1, 1);
+            int range = (DateTime.Today - start).Days;
+            return start.AddDays(random.Next(range));
+        }
+
+        DateTime RandomDateTwo(DateTime var)
+        {
+            int range = (DateTime.Today - var).Days;
+            return var.AddDays(random.Next(range));
+        }
+
+        for (var j = 0; j < 6; j++)
+        {
+            int length = 16;
+            var rString = "";
+
+            for (var i = 0; i < length; i++)
+            {
+                rString += ((char)(random.Next(1, 26) + 64)).ToString().ToLower();
+            }
+
+            DateTime date1 = RandomDateOne();
+            DateTime date2 = RandomDateTwo(date1);
+
+            bool rev = false;
+
+            if (date2.AddYears(2) <= DateTime.Today)
+            {
+                rev = true;
+            }
+
+
+            vybaveniNemocnice.Add(new VybaveniModel
+            {
+                Name = rString,
+                BoughtDate = date1,
+                LastRevisionDate = date2,
+                NeedsRevision = rev,
+                IsInEditMode = false
+            }
+        );
+
+        }
+    }
+
+    @*
+        private void AddNewItem(VybaveniModel item)
+        {
+            vybaveniNemocnice.Insert(0, item);
+        }
+    *@
+}
+

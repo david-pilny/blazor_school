@@ -1,0 +1,131 @@
+﻿@using System.ComponentModel.DataAnnotations
+
+@if (Vybaveni != null && Vybaveni.IsInEditMode == false)
+{
+    <tr style="@StyleForRevision(Vybaveni)">
+        <td>@Vybaveni.Name</td>
+        <td>@Vybaveni.BoughtDate.ToShortDateString()</td>
+        <td>@Vybaveni.LastRevisionDate.ToShortDateString()</td>
+        @if (Vybaveni.NeedsRevision == true)
+        {
+            <td>Ano</td>
+        }
+        else
+        {
+            <td>Ne</td>
+        }
+        <td>
+            <button class="button-24" role="button" @onclick="() => DeleteItemCallback.InvokeAsync()">Smazat</button>
+            <button class="button-25" role="button" @onclick="() => NeedsRevision(Vybaveni)">Provést revizi</button>
+            <button class="button-edit" role="button" @onclick="() => TurnOnEdit()">Editovat</button>
+        </td>
+    </tr>
+}
+else if (editingItem != null && editingItem.IsInEditMode == true)
+{
+    <tr class="border-2 border-slate-400">
+        <td colspan="5">
+            <EditForm Model="editingItem" OnValidSubmit="() => TurnOffEdit(true)">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <table>
+                    <tr>
+                        <td><InputText @bind-Value="Name" /></td>
+                        <td><input @bind="editingItem.BoughtDate" type="date" /></td>
+                        <td><input @bind="editingItem.LastRevisionDate" type="date" /></td>
+                        @if (editingItem.NeedsRevision == true)
+                        {
+                            <td>Ano</td>
+                        }
+                        else
+                        {
+                            <td>Ne</td>
+                        }
+                        <td>
+                            @if (ChildContent == null)
+                            {
+                                <button class="button-25">Ok</button>
+                            }
+                            else
+                            {
+                                @ChildContent
+                            }
+                        </td>
+                    </tr>
+                </table>
+            </EditForm>
+        </td>
+    </tr>
+
+}
+@code {
+
+    VybaveniModel editingItem;
+
+    [Parameter]
+    public EventCallback<VybaveniModel> DeleteItemCallback { get; set; }
+
+    [Parameter]
+    public EventCallback<Boolean> EditDoneCallback { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    VybaveniModel? _Vybaveni;
+    [Parameter]
+    public VybaveniModel? Vybaveni
+    {
+        get => _Vybaveni;
+        set
+        {
+            _Vybaveni = value;
+            if (value != null && value.IsInEditMode == true)
+                TurnOnEdit();
+        }
+    }
+
+    [Required, MinLength(5, ErrorMessage = "Délka u pole \"{0}\" musí být alespoň {1} znaků")]
+    [Display(Name = "Název")]
+    public string Name { get; set; } = "";
+
+    private string StyleForRevision(VybaveniModel obj)
+    {
+        if (obj.LastRevisionDate.AddYears(2) <= DateTime.Today)
+        {
+            return "background-color: #FF9C9C";
+        }
+        else
+        {
+            return "";
+        }
+
+    }
+
+    private void NeedsRevision(VybaveniModel obj)
+    {
+        obj.LastRevisionDate = DateTime.Today;
+        obj.NeedsRevision = false;
+    }
+
+    private void TurnOnEdit()
+    {
+        if (Vybaveni != null)
+        {
+            Vybaveni.IsInEditMode = true;
+            editingItem = Vybaveni.Copy();
+        }
+    }
+
+    private void TurnOffEdit(bool success)
+    {
+        if (success)
+        {
+            editingItem.Name = Name;
+            editingItem?.MapTo(Vybaveni);
+        }
+        if (Vybaveni is not null)
+            Vybaveni.IsInEditMode = false;
+        editingItem = null;
+        EditDoneCallback.InvokeAsync(success);
+    }
+}

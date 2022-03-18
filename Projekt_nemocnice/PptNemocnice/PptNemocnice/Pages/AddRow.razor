@@ -1,0 +1,50 @@
+﻿<tr>
+    <td><input @bind="CreateName" /></td>
+    <td><input @bind="CreateBoughtDate" type="date" /></td>
+    <td><input @bind="CreateRevisionDate" type="date" /></td>
+    <td>-</td>
+    <td>
+        <button class="button-25" role="button" @onclick="() => AddItem(CreateName, CreateBoughtDate, CreateRevisionDate)">Přidat</button>
+        <button class="button-24" role="button" @onclick="() => IsBeingCreatedCallback.InvokeAsync()">Zrušit</button>
+    </td>
+</tr>
+
+@code {
+
+    [Parameter]
+    public EventCallback<Boolean> IsBeingCreatedCallback { get; set; }
+
+    [Parameter]
+    public EventCallback<VybaveniModel> AddNewItem { get; set; }
+
+    private string CreateName = "";
+
+    private DateTime CreateBoughtDate = DateTime.Today;
+
+    private DateTime CreateRevisionDate = DateTime.Today;
+
+    private void AddItem(string name, DateTime bought, DateTime revision )
+    {
+        bool rev = false;
+
+        if (revision.AddYears(2) <= DateTime.Today)
+        {
+            rev = true;
+        }
+
+        VybaveniModel newItem = new VybaveniModel
+        {
+            Name = name,
+            BoughtDate = bought,
+            LastRevisionDate = revision,
+            NeedsRevision = rev,
+            IsInEditMode = false
+        };
+
+        IsBeingCreatedCallback.InvokeAsync();
+        AddNewItem.InvokeAsync(newItem);
+
+    }
+
+}
+
