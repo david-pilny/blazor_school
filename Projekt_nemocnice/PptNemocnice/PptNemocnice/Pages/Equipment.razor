@@ -30,7 +30,6 @@
                     Name = "",
                     BoughtDate = DateTime.Today,
                     LastRevisionDate = DateTime.Today,
-                    NeedsRevision = false,
                     IsInEditMode = true
                 };
 
@@ -92,20 +91,11 @@
             DateTime date1 = RandomDateOne();
             DateTime date2 = RandomDateTwo(date1);
 
-            bool rev = false;
-
-            if (date2.AddYears(2) <= DateTime.Today)
-            {
-                rev = true;
-            }
-
-
             vybaveniNemocnice.Add(new VybaveniModel
             {
                 Name = rString,
                 BoughtDate = date1,
                 LastRevisionDate = date2,
-                NeedsRevision = rev,
                 IsInEditMode = false
             }
         );

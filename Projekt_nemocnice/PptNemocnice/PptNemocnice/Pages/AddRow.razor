@@ -25,19 +25,11 @@
 
     private void AddItem(string name, DateTime bought, DateTime revision )
     {
-        bool rev = false;
-
-        if (revision.AddYears(2) <= DateTime.Today)
-        {
-            rev = true;
-        }
-
         VybaveniModel newItem = new VybaveniModel
         {
             Name = name,
             BoughtDate = bought,
             LastRevisionDate = revision,
-            NeedsRevision = rev,
             IsInEditMode = false
         };
 

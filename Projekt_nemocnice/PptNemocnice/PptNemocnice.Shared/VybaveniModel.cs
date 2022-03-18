@@ -7,27 +7,9 @@ namespace PptNemocnice
 
 		public DateTime BoughtDate { get; set; }
 
-		private DateTime _LastRevisionDate;
+		public DateTime LastRevisionDate { get; set; }
 
-		public DateTime LastRevisionDate
-		{
-			get
-			{
-				return _LastRevisionDate;
-			}
-
-			set
-			{
-				_LastRevisionDate = value;
-				if (_LastRevisionDate.AddYears(2) <= DateTime.Today)
-				{
-					NeedsRevision = true;
-				}
-
-			}
-		}
-
-		public bool? NeedsRevision;
+		public bool NeedsRevision => DateTime.Now - LastRevisionDate > TimeSpan.FromDays(365 * 2);
 
 		public bool? IsInEditMode { get; set; }
 
