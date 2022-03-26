@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1700.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PptNemocnice.Api", "PptNemocnice.Api.csproj", "{77CEA754-0AC8-4E0A-B40F-FA154FC6E72E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PptNemocnice.Shared", "..\PptNemocnice.Shared\PptNemocnice.Shared.csproj", "{D9153282-8714-4215-A92D-3326A954B80F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{77CEA754-0AC8-4E0A-B40F-FA154FC6E72E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77CEA754-0AC8-4E0A-B40F-FA154FC6E72E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77CEA754-0AC8-4E0A-B40F-FA154FC6E72E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77CEA754-0AC8-4E0A-B40F-FA154FC6E72E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9153282-8714-4215-A92D-3326A954B80F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9153282-8714-4215-A92D-3326A954B80F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9153282-8714-4215-A92D-3326A954B80F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9153282-8714-4215-A92D-3326A954B80F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B13DB9C1-9DF5-43B9-A0E6-A9229E98A8EC}
+	EndGlobalSection
+EndGlobal

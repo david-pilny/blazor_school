@@ -16,7 +16,7 @@
         }
         <td>
             <button class="button-24" role="button" @onclick="() => DeleteItemCallback.InvokeAsync()">Smazat</button>
-            <button class="button-25" role="button" @onclick="() => NeedsRevision(Vybaveni)">Provést revizi</button>
+            <button class="button-25" role="button" @onclick="() => Vybaveni.LastRevisionDate = DateTime.Today">Provést revizi</button>
             <button class="button-edit" role="button" @onclick="() => TurnOnEdit()">Editovat</button>
         </td>
     </tr>
@@ -30,7 +30,7 @@ else if (editingItem != null && editingItem.IsInEditMode == true)
                 <ValidationSummary />
                 <table>
                     <tr>
-                        <td><InputText @bind-Value="Name" /></td>
+                        <td><InputText @bind-Value="editingItem.Name" /></td>
                         <td><input @bind="editingItem.BoughtDate" type="date" /></td>
                         <td><input @bind="editingItem.LastRevisionDate" type="date" /></td>
                         @if (editingItem.NeedsRevision == true)
@@ -69,9 +69,13 @@ else if (editingItem != null && editingItem.IsInEditMode == true)
     public EventCallback<Boolean> EditDoneCallback { get; set; }
 
     [Parameter]
+    public EventCallback<VybaveniModel> AddNewItem { get; set; }
+
+    [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     VybaveniModel? _Vybaveni;
+
     [Parameter]
     public VybaveniModel? Vybaveni
     {
@@ -84,10 +88,6 @@ else if (editingItem != null && editingItem.IsInEditMode == true)
         }
     }
 
-    [Required, MinLength(5, ErrorMessage = "Délka u pole \"{0}\" musí být alespoň {1} znaků")]
-    [Display(Name = "Název")]
-    public string Name { get; set; } = "";
-
     private string StyleForRevision(VybaveniModel obj)
     {
         if (obj.LastRevisionDate.AddYears(2) <= DateTime.Today)
@@ -99,11 +99,6 @@ else if (editingItem != null && editingItem.IsInEditMode == true)
             return "";
         }
 
-    }
-
-    private void NeedsRevision(VybaveniModel obj)
-    {
-        obj.LastRevisionDate = DateTime.Today;
     }
 
     private void TurnOnEdit()
@@ -119,12 +114,15 @@ else if (editingItem != null && editingItem.IsInEditMode == true)
     {
         if (success)
         {
-            editingItem.Name = Name;
             editingItem?.MapTo(Vybaveni);
         }
         if (Vybaveni is not null)
+        {
             Vybaveni.IsInEditMode = false;
+        }
+
         editingItem = null;
         EditDoneCallback.InvokeAsync(success);
+       // AddNewItem.InvokeAsync(Vybaveni);
     }
 }
