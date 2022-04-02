@@ -1,7 +1,14 @@
 ﻿@page "/vybaveni"
 @using PptNemocnice
+@inject HttpClient Http
 
 <PageTitle>Vybavení nemocnice</PageTitle>
+
+@if (vybaveniNemocnice is null)
+ {
+    <div class="spinner"></div>
+    return;
+ }
 
 <div class="container">
     <h3 class="p-3 text-center">Vybavení nemocnice</h3>
@@ -14,6 +21,7 @@
                 <th>Datum nákupu</th>
                 <th>Datum poslední revize</th>
                 <th>Potřebuje revizi?</th>
+                <th>Cena</th>
                 <th><button class="button-38" role="button" @onclick="() => IsBeinCreated = true">+</button></th>
             </tr>
         </thead>
@@ -21,9 +29,6 @@
         <tbody>
             @if (IsBeinCreated == true)
             {
-                @*
-                    <AddRow IsBeingCreatedCallback="() => IsBeinCreated = false" AddNewItem="AddNewItem" />
-                *@
 
                 VybaveniModel newModel = new VybaveniModel
                 {
@@ -33,7 +38,7 @@
                     IsInEditMode = true
                 };
 
-                <VybaveniRow EditDoneCallback="(success) => { if(success) vybaveniNemocnice.Insert(0,newModel); IsBeinCreated = false; }"
+                <VybaveniRow EditDoneCallback="async (success) => { if(success) await AddVybaveni(newModel); IsBeinCreated = false; }"
                              Vybaveni="newModel">
                     <button class="button-25">Přidat</button>
                     <button type="button" @onclick="() => IsBeinCreated = false" class="button-24">Zrušit</button>
@@ -44,8 +49,8 @@
 
             @foreach (var vybaveni in vybaveniNemocnice)
             {
-                <VybaveniRow Vybaveni="vybaveni" DeleteItemCallback="() => vybaveniNemocnice.Remove(vybaveni)" />
-                @vybaveni.Name
+                <VybaveniRow Vybaveni="vybaveni" DeleteItemCallback="() => DeleteVybaveni(vybaveni)"
+                             PutItemCallback="PutItem"/>
             }
 
         </tbody>
@@ -57,19 +62,62 @@
 
     private bool IsBeinCreated = false;
 
-    List<VybaveniModel> vybaveniNemocnice = VybaveniModel.GetTestList();
+    List<VybaveniModel>? vybaveniNemocnice;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        base.OnInitialized();
+        vybaveniNemocnice = await Http.GetFromJsonAsync<List<VybaveniModel>>("vybaveni");
     }
-    
 
- 
-       @* private void AddNewItem(VybaveniModel item)
-        {
-            vybaveniNemocnice.Insert(0, item); změna pro push
-        }*@
-  
+    async Task DeleteVybaveni(VybaveniModel item)
+    {
+        var resp = await Http.DeleteAsync($"/vybaveni/{item.Id}");
+        if (resp.IsSuccessStatusCode)
+            vybaveniNemocnice.Remove(item);
+    }
+
+    async Task AddVybaveni(VybaveniModel item)
+    {
+        var resp = await Http.PostAsJsonAsync("vybaveni", item);
+        item.Id = await resp.Content.ReadFromJsonAsync<Guid>();
+
+        if (resp.IsSuccessStatusCode)
+            vybaveniNemocnice.Insert(0, item);
+    }
+
+    async Task PutItem(VybaveniModel item)
+    {
+        var resp = await Http.PutAsJsonAsync($"vybaveni/{item.Id}", item);
+        
+    }
+
 }
 
+@*CSS izolace mi bohužel nefungovala, tak proto používám style tag zde*@
+<style>
+    a {
+        outline: none;
+        text-decoration: none;
+        padding: 2px 1px 0;
+    }
+
+        a:link {
+            color: #000000
+        }
+
+        a:visited {
+            color: #000000;
+        }
+
+        a:focus {
+            color: #5F85FF;
+        }
+
+        a:hover {
+            color: #5F85FF;
+        }
+
+        a:active {
+            color: #FF4742;
+        }
+</style>

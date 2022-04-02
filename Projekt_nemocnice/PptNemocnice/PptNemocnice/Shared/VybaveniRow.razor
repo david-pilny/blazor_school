@@ -2,24 +2,25 @@
 
 @if (Vybaveni != null && Vybaveni.IsInEditMode == false)
 {
-    <tr style="@StyleForRevision(Vybaveni)">
-        <td>@Vybaveni.Name</td>
-        <td>@Vybaveni.BoughtDate.ToShortDateString()</td>
-        <td>@Vybaveni.LastRevisionDate.ToShortDateString()</td>
-        @if (Vybaveni.NeedsRevision == true)
-        {
-            <td>Ano</td>
-        }
-        else
-        {
-            <td>Ne</td>
-        }
-        <td>
-            <button class="button-24" role="button" @onclick="() => DeleteItemCallback.InvokeAsync()">Smazat</button>
-            <button class="button-25" role="button" @onclick="() => Vybaveni.LastRevisionDate = DateTime.Today">Provést revizi</button>
-            <button class="button-edit" role="button" @onclick="() => TurnOnEdit()">Editovat</button>
-        </td>
-    </tr>
+<tr style="@StyleForRevision(Vybaveni)">
+    <td><a href="vybaveni/@Vybaveni.Id">@Vybaveni.Name</a></td>
+    <td>@Vybaveni.BoughtDate.ToShortDateString()</td>
+    <td>@Vybaveni.LastRevisionDate.ToShortDateString()</td>
+    @if (Vybaveni.NeedsRevision == true)
+    {
+        <td>Ano</td>
+    }
+    else
+    {
+        <td>Ne</td>
+    }
+    <td>@Vybaveni.PriceCzk CZK</td>
+    <td>
+        <button class="button-24" role="button" @onclick="() => DeleteItemCallback.InvokeAsync()">Smazat</button>
+        <button class="button-25" role="button" @onclick="() => DoRevision(Vybaveni)">Provést revizi</button>
+        <button class="button-edit" role="button" @onclick="() => TurnOnEdit()">Editovat</button>
+    </td>
+</tr>
 }
 else if (editingItem != null && editingItem.IsInEditMode == true)
 {
@@ -41,6 +42,7 @@ else if (editingItem != null && editingItem.IsInEditMode == true)
                         {
                             <td>Ne</td>
                         }
+                        <td><input @bind="editingItem.PriceCzk" type="number" /></td>
                         <td>
                             @if (ChildContent == null)
                             {
@@ -60,16 +62,16 @@ else if (editingItem != null && editingItem.IsInEditMode == true)
 }
 @code {
 
-    VybaveniModel editingItem;
+    VybaveniModel? editingItem;
+
+    [Parameter]
+    public EventCallback<VybaveniModel> PutItemCallback { get; set; }
 
     [Parameter]
     public EventCallback<VybaveniModel> DeleteItemCallback { get; set; }
 
     [Parameter]
     public EventCallback<Boolean> EditDoneCallback { get; set; }
-
-    [Parameter]
-    public EventCallback<VybaveniModel> AddNewItem { get; set; }
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -123,6 +125,13 @@ else if (editingItem != null && editingItem.IsInEditMode == true)
 
         editingItem = null;
         EditDoneCallback.InvokeAsync(success);
-       // AddNewItem.InvokeAsync(Vybaveni);
+        PutItemCallback.InvokeAsync(Vybaveni);
+
+    }
+
+    private void DoRevision(VybaveniModel item)
+    {
+        item.LastRevisionDate = DateTime.Today;
+        PutItemCallback.InvokeAsync(item);
     }
 }

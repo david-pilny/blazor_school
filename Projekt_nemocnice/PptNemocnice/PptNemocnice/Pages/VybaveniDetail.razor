@@ -1,0 +1,82 @@
+﻿@page "/vybaveni/{Id:guid}"
+@using PptNemocnice
+@inject HttpClient Http
+
+@if (item is null)
+{
+    <div class="spinner"></div>
+    return;
+}
+<h1>@item.Name</h1>
+
+<div class="divTable">
+    <div class="divTableBody">
+        <div class="divTableRow">
+            <div class="divTableCell">ID</div>
+            <div class="divTableCell">@item.Id</div>
+        </div>
+        <div class="divTableRow">
+            <div class="divTableCell">Název</div>
+            <div class="divTableCell">@item.Name</div>
+        </div>
+        <div class="divTableRow">
+            <div class="divTableCell">Datum nákupu</div>
+            <div class="divTableCell">@item.BoughtDate</div>
+        </div>
+        <div class="divTableRow">
+            <div class="divTableCell">Datum poslední revize</div>
+            <div class="divTableCell">@item.LastRevisionDate</div>
+        </div>
+        <div class="divTableRow">
+            <div class="divTableCell">Potřebuje revizi?</div>
+            @if (item.NeedsRevision)
+            {
+                <div class="divTableCell">Ano</div>
+            }
+            else
+            {
+                <div class="divTableCell">Ne</div>
+            }
+        </div>
+        <div class="divTableRow">
+            <div class="divTableCell">Cena</div>
+            <div class="divTableCell">@item.PriceCzk CZK</div>
+        </div>
+    </div>
+</div>
+
+
+@*
+    Div tabulka mi přišla esteticky hezčí, každopádně pokud bude v budoucnu kvůli funkčnosti třeba použít grid,
+    tak div tabulku vymažu
+    <div class="grid grid-cols-2">
+        <div>Název</div>
+        <div>@item.Name</div>
+        <div>Datum nákupu</div>
+        <div>@item.BoughtDate</div>
+        <div>Datum poslední revize</div>
+        <div>@item.LastRevisionDate</div>
+        <div>Potřebuje revizi?</div>
+        @if (item.NeedsRevision)
+        {
+            <div>Ano</div>
+        }
+        else
+        {
+            <div>Ne</div>
+        }
+        <div>Cena</div>
+        <div>@item.PriceCzk CZK</div>
+    </div>*@
+@code {
+
+    [Parameter]
+    public Guid Id { get; set; }
+
+    VybaveniModel? item { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        item = await Http.GetFromJsonAsync<VybaveniModel>($"vybaveni/{Id}");
+    }
+}

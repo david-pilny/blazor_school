@@ -2,15 +2,20 @@ using PptNemocnice.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(corsOptions => corsOptions.AddDefaultPolicy(policy =>
+    policy.WithOrigins("https://localhost:7132")
+    .WithMethods("DELETE", "GET", "PUT", "POST")
+    .AllowAnyHeader()
+));
+
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello");
+app.UseCors();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -19,13 +24,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
 app.UseHttpsRedirection();
-
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
 
 List<VybaveniModel> seznam = VybaveniModel.GetTestList();
 
@@ -42,18 +41,15 @@ app.MapGet("/vybaveni/{Id}", (Guid Id) =>
     return Results.Ok(item);
 });
 
-app.MapPut("/vybaveni/{Id}", (Guid Id, string name, DateTime bought, DateTime revision, double price) =>
+app.MapPut("/vybaveni/{Id}", (VybaveniModel incomingItem) =>
 {
-    var item = seznam.SingleOrDefault(x => x.Id == Id);
+    var item = seznam.SingleOrDefault(x => x.Id == incomingItem.Id);
     if (item == null)
         return Results.NotFound("Tato položka nebyla nalezena!!");
 
-    item.Name=name;
-    item.BoughtDate = bought;
-    item.LastRevisionDate = revision;
-    item.PriceCzk = price;
+    item = incomingItem;
 
-    int index = seznam.FindIndex(x => x.Id == Id);
+    int index = seznam.FindIndex(x => x.Id == incomingItem.Id);
 
     if (index != -1)
         seznam[index] = item;
@@ -61,18 +57,11 @@ app.MapPut("/vybaveni/{Id}", (Guid Id, string name, DateTime bought, DateTime re
     return Results.Ok();
 });
 
-app.MapPost("/vybaveni", (string name, DateTime bought, DateTime revision, double price) =>
+app.MapPost("/vybaveni", (VybaveniModel prichoziModel) =>
 {
-    VybaveniModel prichoziModel = new VybaveniModel
-    {
-        Id = Guid.NewGuid(),
-        Name = name,
-        BoughtDate = bought,
-        LastRevisionDate = revision,
-        IsInEditMode = false,
-        PriceCzk = price
-    };
+    prichoziModel.Id = Guid.NewGuid();
     seznam.Insert(0, prichoziModel);
+    return prichoziModel.Id;
 });
 
 app.MapDelete("/vybaveni/{Id}", (Guid Id) =>
@@ -85,10 +74,4 @@ app.MapDelete("/vybaveni/{Id}", (Guid Id) =>
 }
 );
 
-
 app.Run();
-
-record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

@@ -27,6 +27,8 @@ namespace PptNemocnice.Shared
 			to.LastRevisionDate = LastRevisionDate;
 			to.IsInEditMode = IsInEditMode;
 			to.Name = Name;
+            to.Id = Id;
+            to.PriceCzk = PriceCzk;
 			return to;
 		}
 
@@ -36,7 +38,9 @@ namespace PptNemocnice.Shared
 			to.BoughtDate = BoughtDate;
 			to.LastRevisionDate = LastRevisionDate;
 			to.Name = Name;
-		}
+            to.Id = Id;
+            to.PriceCzk = PriceCzk;
+        }
 
         public static List<VybaveniModel> GetTestList()
         {
