@@ -1,0 +1,26 @@
+﻿@page "/revize/{routeParam}"
+@using PptNemocnice
+@inject HttpClient Http
+
+<h1>@routeParam</h1>
+@if (inputValue is null)
+{ 
+    return;
+}
+<p>@inputValue</p>
+<table><tr><td><input type="text" @bind-value="inputValue" @bind:event="BindValue" /></td></tr></table>
+
+<button @onclick="BindValue">Vyhledat</button>
+
+@code {
+    [Parameter]
+    public string routeParam { get; set; }
+
+    private string? inputValue { get; set; }
+
+    private void BindValue()
+    {
+
+    }
+}
+
