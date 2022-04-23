@@ -1,6 +1,6 @@
 ﻿@using System.ComponentModel.DataAnnotations
 
-@if (Vybaveni != null && Vybaveni.IsInEditMode == false)
+@if (Vybaveni != null && (Vybaveni.IsInEditMode == false || Vybaveni.IsInEditMode is null))
 {
 <tr style="@StyleForRevision(Vybaveni)">
     <td><a href="vybaveni/@Vybaveni.Id">@Vybaveni.Name</a></td>

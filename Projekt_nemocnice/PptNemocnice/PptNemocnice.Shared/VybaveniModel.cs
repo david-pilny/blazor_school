@@ -42,6 +42,9 @@ namespace PptNemocnice.Shared
             to.PriceCzk = PriceCzk;
         }
 
+        public static string RandomString(int length, Random rnd) =>
+            new(Enumerable.Range(0, length).Select(_ => (char)rnd.Next('a', 'z')).ToArray());
+
         public static List<VybaveniModel> GetTestList()
         {
             List<VybaveniModel> list = new List<VybaveniModel>();
@@ -87,7 +90,10 @@ namespace PptNemocnice.Shared
             }
             return list;
         }
-	}
+     
+    }
+
+    
 
 }
 

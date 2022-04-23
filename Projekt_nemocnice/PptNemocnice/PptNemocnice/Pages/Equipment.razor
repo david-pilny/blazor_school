@@ -5,10 +5,10 @@
 <PageTitle>Vybavení nemocnice</PageTitle>
 
 @if (vybaveniNemocnice is null)
- {
-    <div class="spinner"></div>
+{
+    <div class="loader"></div>
     return;
- }
+}
 
 <div class="container">
     <h3 class="p-3 text-center">Vybavení nemocnice</h3>
@@ -43,20 +43,18 @@
                     <button class="button-25">Přidat</button>
                     <button type="button" @onclick="() => IsBeinCreated = false" class="button-24">Zrušit</button>
                 </VybaveniRow>
-
-
             }
 
             @foreach (var vybaveni in vybaveniNemocnice)
             {
-                <VybaveniRow Vybaveni="vybaveni" DeleteItemCallback="() => DeleteVybaveni(vybaveni)"
-                             PutItemCallback="PutItem"/>
+                <VybaveniRow Vybaveni="vybaveni" DeleteItemCallback="() => DeleteVybaveni(vybaveni)" PutItemCallback="PutItem" />
             }
 
         </tbody>
 
     </table>
 </div>
+
 
 @code {
 
@@ -88,7 +86,7 @@
     async Task PutItem(VybaveniModel item)
     {
         var resp = await Http.PutAsJsonAsync($"vybaveni/{item.Id}", item);
-        
+
     }
 
 }

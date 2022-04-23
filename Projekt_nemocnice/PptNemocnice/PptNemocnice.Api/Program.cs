@@ -1,6 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using PptNemocnice.Api.Data;
 using PptNemocnice.Shared;
+using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<NemocniceDbContext>(
+    opt => opt.UseSqlite("FileName=Nemocnice.db")
+    );
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -26,50 +34,88 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-List<VybaveniModel> seznam = VybaveniModel.GetTestList();
-
-app.MapGet("/vybaveni", () =>
+app.MapGet("/revize/{vyhledavanyRetezec}", (string vyhledavanyRetezec, NemocniceDbContext db) =>
 {
+    if (string.IsNullOrWhiteSpace(vyhledavanyRetezec))
+    {
+        return Results.Problem("Parametr musí být neprázdný");
+    }
+    //var kdeJeRetezec = db.Revize.SelectMany(x => x.Name).Where(tr => vyhledavanyRetezec.Contains(tr)).ToList();
+    List<RevizeModel> revizeList = db.Revize.ToList();
+    var kdeJeRetezec = revizeList.Where(x => x.Name.Contains(vyhledavanyRetezec));
+    return Results.Json(kdeJeRetezec);
+});
+
+app.MapGet("/vybaveni/jensrevizi", (int c) =>
+{
+    //return seznam.Where(x => !x.NeedsRevision);
+});
+
+app.MapGet("/vybaveni", (NemocniceDbContext db, IMapper mapper) =>
+{
+    List<VybaveniModel> seznam = new();
+
+    List<Vybaveni> Vybaveni = db.Vybaveni.ToList(); 
+
+    foreach (var vybaveni in Vybaveni)
+    {
+        VybaveniModel item = mapper.Map<VybaveniModel>(vybaveni);
+        seznam.Add(item);
+    }
+
     return seznam;
 });
 
-app.MapGet("/vybaveni/{Id}", (Guid Id) =>
+app.MapGet("/vybaveni/{Id}", (NemocniceDbContext db, Guid Id, IMapper mapper) =>
 {
-    var item = seznam.SingleOrDefault(x => x.Id == Id);
-    if (item == null)
+    Vybaveni item = db.Vybaveni.First(a => a.Id == Id);
+    if (item == null) {
         return Results.NotFound("Tato položka nebyla nalezena!!");
-    return Results.Ok(item);
+    }
+    VybaveniModel item2 = mapper.Map<VybaveniModel>(item);
+    return Results.Ok(item2);
 });
 
-app.MapPut("/vybaveni/{Id}", (VybaveniModel incomingItem) =>
+app.MapPut("/vybaveni/{Id}", (NemocniceDbContext db, VybaveniModel incomingItem, IMapper mapper) =>
 {
-    var item = seznam.SingleOrDefault(x => x.Id == incomingItem.Id);
+    Vybaveni item = db.Vybaveni.First(a => a.Id == incomingItem.Id);
+
     if (item == null)
+    {
         return Results.NotFound("Tato položka nebyla nalezena!!");
+    }
 
-    item = incomingItem;
+    item.Name = incomingItem.Name;
+    item.BoughtDate = incomingItem.BoughtDate;
+    item.LastRevisionDate = incomingItem.LastRevisionDate;
+    item.PriceCzk = incomingItem.PriceCzk;
 
-    int index = seznam.FindIndex(x => x.Id == incomingItem.Id);
-
-    if (index != -1)
-        seznam[index] = item;
+    db.SaveChanges();
 
     return Results.Ok();
 });
 
-app.MapPost("/vybaveni", (VybaveniModel prichoziModel) =>
+app.MapPost("/vybaveni", (VybaveniModel prichoziModel, NemocniceDbContext db, IMapper mapper) =>
 {
-    prichoziModel.Id = Guid.NewGuid();
-    seznam.Insert(0, prichoziModel);
-    return prichoziModel.Id;
+    prichoziModel.Id = Guid.Empty;
+    Vybaveni ent = mapper.Map<Vybaveni>(prichoziModel);
+    db.Vybaveni.Add(ent);
+    db.SaveChanges();
+
+    return Results.Created("/vybaveni", ent.Id);
 });
 
-app.MapDelete("/vybaveni/{Id}", (Guid Id) =>
+app.MapDelete("/vybaveni/{Id}", (NemocniceDbContext db, Guid Id) =>
 {
-    var item = seznam.SingleOrDefault(x => x.Id == Id);
+    var item = db.Vybaveni.Where(x => x.Id == Id);
+
     if (item == null)
+    {
         return Results.NotFound("Tato položka nebyla nalezena!!");
-    seznam.Remove(item);
+    }
+
+    db.Remove(db.Vybaveni.Single(a => a.Id == Id));
+    db.SaveChanges();
     return Results.Ok();
 }
 );

@@ -2,25 +2,34 @@
 @using PptNemocnice
 @inject HttpClient Http
 
-<h1>@routeParam</h1>
-@if (inputValue is null)
-{ 
-    return;
-}
-<p>@inputValue</p>
-<table><tr><td><input type="text" @bind-value="inputValue" @bind:event="BindValue" /></td></tr></table>
+<h1 class="text-green-500">@routeParam</h1>
 
-<button @onclick="BindValue">Vyhledat</button>
+<div>
+    <input class="border" type="text" @bind-value=vyhledavaniString />
+    <button @onclick="() => VyhledavaniClick()" type="button" class="button-25">Vyhledej</button>
+    @if (seznamReviziPoVyhledani is not null)
+    {
 
-@code {
-    [Parameter]
-    public string routeParam { get; set; }
-
-    private string? inputValue { get; set; }
-
-    private void BindValue()
+        <div>
+            @foreach (var rev in seznamReviziPoVyhledani)
+            {
+                <div>Id: @rev.Id     Jmeno: @rev.Name</div>
+            }
+        </div>
+    }
+    else
     {
 
     }
-}
+</div>
 
+@code {
+    [Parameter] public string routeParam { get; set; } = "";
+    string vyhledavaniString = "";
+    List<RevizeModel>? seznamReviziPoVyhledani;
+
+    async Task VyhledavaniClick()
+    {
+        seznamReviziPoVyhledani = await Http.GetFromJsonAsync<List<RevizeModel>>($"revize/{vyhledavaniString}");
+    }
+}
