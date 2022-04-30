@@ -40,8 +40,7 @@ app.MapGet("/revize/{vyhledavanyRetezec}", (string vyhledavanyRetezec, Nemocnice
     {
         return Results.Problem("Parametr musí být neprázdný");
     }
-    //var kdeJeRetezec = db.Revize.SelectMany(x => x.Name).Where(tr => vyhledavanyRetezec.Contains(tr)).ToList();
-    List<RevizeModel> revizeList = db.Revize.ToList();
+    List<Revize> revizeList = db.Revize.ToList();
     var kdeJeRetezec = revizeList.Where(x => x.Name.Contains(vyhledavanyRetezec));
     return Results.Json(kdeJeRetezec);
 });
@@ -51,15 +50,35 @@ app.MapGet("/vybaveni/jensrevizi", (int c) =>
     //return seznam.Where(x => !x.NeedsRevision);
 });
 
+app.MapGet("/revize/detail/{Id}", (Guid Id, NemocniceDbContext db, IMapper mapper) =>
+{
+    List<Revize> revizeList = db.Revize.ToList();
+    List<VybaveniSRevizemiModel> list = new();
+
+    foreach(Revize item in revizeList)
+    {
+        if(item.VybaveniId == Id)
+        {
+            VybaveniSRevizemiModel item2 = mapper.Map<VybaveniSRevizemiModel>(item);
+            list.Add(item2);
+        }
+    }
+    return Results.Json(list);
+});
+
 app.MapGet("/vybaveni", (NemocniceDbContext db, IMapper mapper) =>
 {
     List<VybaveniModel> seznam = new();
 
-    List<Vybaveni> Vybaveni = db.Vybaveni.ToList(); 
+    var ents = db.Vybaveni.Include(x => x.Revizes); 
 
-    foreach (var vybaveni in Vybaveni)
+    foreach (var ent in ents)
     {
-        VybaveniModel item = mapper.Map<VybaveniModel>(vybaveni);
+        VybaveniModel item = mapper.Map<VybaveniModel>(ent);
+        if(ent.Revizes.Count > 0) {
+            item.LastRevisionDate = ent.Revizes.Last().DateTime;
+        }
+            
         seznam.Add(item);
     }
 
@@ -68,37 +87,81 @@ app.MapGet("/vybaveni", (NemocniceDbContext db, IMapper mapper) =>
 
 app.MapGet("/vybaveni/{Id}", (NemocniceDbContext db, Guid Id, IMapper mapper) =>
 {
-    Vybaveni item = db.Vybaveni.First(a => a.Id == Id);
+    Vybaveni item = db.Vybaveni.Include(x => x.Revizes).First(a => a.Id == Id);
     if (item == null) {
         return Results.NotFound("Tato položka nebyla nalezena!!");
     }
     VybaveniModel item2 = mapper.Map<VybaveniModel>(item);
+    item2.LastRevisionDate = item.Revizes.Last().DateTime;
     return Results.Ok(item2);
 });
 
 app.MapPut("/vybaveni/{Id}", (NemocniceDbContext db, VybaveniModel incomingItem, IMapper mapper) =>
 {
-    Vybaveni item = db.Vybaveni.First(a => a.Id == incomingItem.Id);
+    Vybaveni item = db.Vybaveni.FirstOrDefault(a => a.Id == incomingItem.Id);
 
     if (item == null)
     {
         return Results.NotFound("Tato položka nebyla nalezena!!");
     }
 
-    item.Name = incomingItem.Name;
-    item.BoughtDate = incomingItem.BoughtDate;
-    item.LastRevisionDate = incomingItem.LastRevisionDate;
-    item.PriceCzk = incomingItem.PriceCzk;
+    mapper.Map(incomingItem, item);
 
     db.SaveChanges();
 
     return Results.Ok();
 });
 
+app.MapPost("/revize", (NemocniceDbContext db, VybaveniModel item, IMapper mapper) =>
+{
+    Random random = new Random();
+    int length = 16;
+    var rString = "";
+
+    for (var i = 0; i < length; i++)
+    {
+        rString += ((char)(random.Next(1, 26) + 64)).ToString().ToLower();
+    }
+
+    Revize ent = new();
+    ent.Id = Guid.Empty;
+    ent.Name = rString;
+    ent.DateTime = DateTime.Now;
+    ent.VybaveniId = item.Id;
+    db.Revize.Add(ent);
+    db.SaveChanges();
+    return Results.Ok();
+
+});
+
+app.MapPost("/revize/onadd", (NemocniceDbContext db, VybaveniModel item, IMapper mapper) =>
+{
+    Random random = new Random();
+    int length = 16;
+    var rString = "";
+
+    for (var i = 0; i < length; i++)
+    {
+        rString += ((char)(random.Next(1, 26) + 64)).ToString().ToLower();
+    }
+
+    Revize ent = new();
+    ent.Id = Guid.Empty;
+    ent.Name = rString;
+    ent.DateTime = item.LastRevisionDate;
+    ent.VybaveniId = item.Id;
+    db.Revize.Add(ent);
+    db.SaveChanges();
+    return Results.Ok();
+
+});
+
+
 app.MapPost("/vybaveni", (VybaveniModel prichoziModel, NemocniceDbContext db, IMapper mapper) =>
 {
     prichoziModel.Id = Guid.Empty;
     Vybaveni ent = mapper.Map<Vybaveni>(prichoziModel);
+
     db.Vybaveni.Add(ent);
     db.SaveChanges();
 
@@ -117,7 +180,6 @@ app.MapDelete("/vybaveni/{Id}", (NemocniceDbContext db, Guid Id) =>
     db.Remove(db.Vybaveni.Single(a => a.Id == Id));
     db.SaveChanges();
     return Results.Ok();
-}
-);
+});
 
 app.Run();

@@ -13,6 +13,8 @@ public class Vybaveni
 
     public DateTime BoughtDate { get; set; }
 
-    public DateTime LastRevisionDate { get; set; }
+    //public DateTime LastRevisionDate { get; set; }
+
+    public List<Revize> Revizes { get; set; } = new();
 }
 

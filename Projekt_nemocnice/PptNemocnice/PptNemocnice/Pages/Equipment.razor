@@ -47,7 +47,8 @@
 
             @foreach (var vybaveni in vybaveniNemocnice)
             {
-                <VybaveniRow Vybaveni="vybaveni" DeleteItemCallback="() => DeleteVybaveni(vybaveni)" PutItemCallback="PutItem" />
+                <VybaveniRow Vybaveni="vybaveni" DeleteItemCallback="() => DeleteVybaveni(vybaveni)" PutItemCallback="PutItem"
+                             RevisionUpdateCallback="RevisionUpdate"/>
             }
 
         </tbody>
@@ -80,13 +81,23 @@
         item.Id = await resp.Content.ReadFromJsonAsync<Guid>();
 
         if (resp.IsSuccessStatusCode)
+        {
+            var resp2 = await Http.PostAsJsonAsync($"revize/onadd", item);
             vybaveniNemocnice.Insert(0, item);
+        }
+
     }
 
     async Task PutItem(VybaveniModel item)
     {
         var resp = await Http.PutAsJsonAsync($"vybaveni/{item.Id}", item);
 
+    }
+
+    async Task RevisionUpdate(VybaveniModel item)
+    {
+        var resp = await Http.PostAsJsonAsync($"revize", item);
+        vybaveniNemocnice = await Http.GetFromJsonAsync<List<VybaveniModel>>("vybaveni");
     }
 
 }

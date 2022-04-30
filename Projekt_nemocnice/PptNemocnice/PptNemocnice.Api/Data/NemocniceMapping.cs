@@ -8,6 +8,10 @@ namespace PptNemocnice.Api.Data
 		public NemocniceMapping()
         {
 			CreateMap<Vybaveni, VybaveniModel>().ReverseMap();
-        }
+
+			CreateMap<Revize, RevizeModel>().ReverseMap();
+
+			CreateMap<Revize, VybaveniSRevizemiModel>().ReverseMap();
+		}
 	}
 }

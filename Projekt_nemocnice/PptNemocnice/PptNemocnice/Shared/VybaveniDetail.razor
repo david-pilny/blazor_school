@@ -2,9 +2,9 @@
 @using PptNemocnice
 @inject HttpClient Http
 
-@if (item is null)
+@if (item is null || list is null)
 {
-<div class="loader"></div>
+    <div class="loader"></div>
     return;
 }
 <h1>@item.Name</h1>
@@ -12,23 +12,23 @@
 <div class="divTable">
     <div class="divTableBody">
         <div class="divTableRow">
-            <div class="divTableCell">ID</div>
+            <div class="divTableCell"><b>ID</b></div>
             <div class="divTableCell">@item.Id</div>
         </div>
         <div class="divTableRow">
-            <div class="divTableCell">Název</div>
+            <div class="divTableCell"><b>Název</b></div>
             <div class="divTableCell">@item.Name</div>
         </div>
         <div class="divTableRow">
-            <div class="divTableCell">Datum nákupu</div>
-            <div class="divTableCell">@item.BoughtDate</div>
+            <div class="divTableCell"><b>Datum nákupu</b></div>
+            <div class="divTableCell">@item.BoughtDate.ToShortDateString()</div>
         </div>
         <div class="divTableRow">
-            <div class="divTableCell">Datum poslední revize</div>
-            <div class="divTableCell">@item.LastRevisionDate</div>
+            <div class="divTableCell"><b>Datum poslední revize</b></div>
+            <div class="divTableCell">@item.LastRevisionDate.ToShortDateString()</div>
         </div>
         <div class="divTableRow">
-            <div class="divTableCell">Potřebuje revizi?</div>
+            <div class="divTableCell"><b>Potřebuje revizi?</b></div>
             @if (item.NeedsRevision)
             {
                 <div class="divTableCell">Ano</div>
@@ -39,35 +39,32 @@
             }
         </div>
         <div class="divTableRow">
-            <div class="divTableCell">Cena</div>
+            <div class="divTableCell"><b>Cena</b></div>
             <div class="divTableCell">@item.PriceCzk CZK</div>
         </div>
     </div>
 </div>
 
+<h3>Provedené revize</h3>
+<div class="divTable">
+    <div class="divTableBody">
+        <div class="divTableRow">
+            <div class="divTableCell"><b>ID revize</b></div>
+            <div class="divTableCell"><b>Název</b></div>
+            <div class="divTableCell"><b>Datum provedení</b></div>
+        </div>
+        @foreach (VybaveniSRevizemiModel item in list)
+        {
+            <div class="divTableRow">
+                <div class="divTableCell">@item.Id</div>
+                <div class="divTableCell">@item.Name</div>
+                <div class="divTableCell">@item.DateTime</div>
+            </div>
+        }
+    </div>
 
-@*
-    Div tabulka mi přišla esteticky hezčí, každopádně pokud bude v budoucnu kvůli funkčnosti třeba použít grid,
-    tak div tabulku vymažu
-    <div class="grid grid-cols-2">
-        <div>Název</div>
-        <div>@item.Name</div>
-        <div>Datum nákupu</div>
-        <div>@item.BoughtDate</div>
-        <div>Datum poslední revize</div>
-        <div>@item.LastRevisionDate</div>
-        <div>Potřebuje revizi?</div>
-        @if (item.NeedsRevision)
-        {
-            <div>Ano</div>
-        }
-        else
-        {
-            <div>Ne</div>
-        }
-        <div>Cena</div>
-        <div>@item.PriceCzk CZK</div>
-    </div>*@
+</div>
+
 @code {
 
     [Parameter]
@@ -75,8 +72,20 @@
 
     VybaveniModel? item { get; set; }
 
+    List<VybaveniSRevizemiModel>? list;
+
     protected override async Task OnInitializedAsync()
     {
         item = await Http.GetFromJsonAsync<VybaveniModel>($"vybaveni/{Id}");
+        list = await Http.GetFromJsonAsync<List<VybaveniSRevizemiModel>>($"revize/detail/{Id}");
+        @*
+            Moc jsem nepochopil, jak je myšleno to VybaveniSRevizemaModel. Ze zadání vyplývá,
+            že musíme namapovat celý ten model tak aby tam byl seznam všech revizí. Nepochopil jsem ale
+            proč, protože k tomu seznamu revizí můžu přistupovat samostatně, respektive udělat si seznam
+            revizí, kde je VybaveniId stejné jako Id vybavení, jehož detail si chci prohlédnout. V tom
+            VybaveniSRevizemaModel jsem namapoval třídu Revize, protože k ní v Pptnemocnice nemám přístup a
+            dělám foreach cyklus na ten seznam, který dostanu. Pokud tento postup je špatně, tak to samozřejmě
+            předělám
+        *@
     }
 }

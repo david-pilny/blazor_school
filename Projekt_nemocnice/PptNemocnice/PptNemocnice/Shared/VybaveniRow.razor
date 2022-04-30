@@ -5,7 +5,15 @@
 <tr style="@StyleForRevision(Vybaveni)">
     <td><a href="vybaveni/@Vybaveni.Id">@Vybaveni.Name</a></td>
     <td>@Vybaveni.BoughtDate.ToShortDateString()</td>
-    <td>@Vybaveni.LastRevisionDate.ToShortDateString()</td>
+    @if (Vybaveni.LastRevisionDate == default(DateTime))
+    {
+        <td>?</td>
+    }
+    else
+    {
+        <td>@Vybaveni.LastRevisionDate.ToShortDateString()</td>
+    }
+
     @if (Vybaveni.NeedsRevision == true)
     {
         <td>Ano</td>
@@ -33,7 +41,8 @@ else if (editingItem != null && editingItem.IsInEditMode == true)
                     <tr>
                         <td><InputText @bind-Value="editingItem.Name" /></td>
                         <td><input @bind="editingItem.BoughtDate" type="date" /></td>
-                        <td><input @bind="editingItem.LastRevisionDate" type="date" /></td>
+                        @*<td><input @bind="editingItem.LastRevisionDate" type="date" /></td>*@
+                        <td>@Vybaveni.LastRevisionDate.ToShortDateString()</td>
                         @if (editingItem.NeedsRevision == true)
                         {
                             <td>Ano</td>
@@ -62,10 +71,13 @@ else if (editingItem != null && editingItem.IsInEditMode == true)
 }
 @code {
 
-    VybaveniModel? editingItem;
+        VybaveniModel? editingItem;
 
-    [Parameter]
-    public EventCallback<VybaveniModel> PutItemCallback { get; set; }
+        [Parameter]
+        public EventCallback<VybaveniModel> PutItemCallback { get; set; }
+
+        [Parameter]
+        public EventCallback<VybaveniModel> RevisionUpdateCallback { get; set; }
 
     [Parameter]
     public EventCallback<VybaveniModel> DeleteItemCallback { get; set; }
@@ -131,7 +143,6 @@ else if (editingItem != null && editingItem.IsInEditMode == true)
 
     private void DoRevision(VybaveniModel item)
     {
-        item.LastRevisionDate = DateTime.Today;
-        PutItemCallback.InvokeAsync(item);
+        RevisionUpdateCallback.InvokeAsync(item);
     }
 }
