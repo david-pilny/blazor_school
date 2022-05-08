@@ -25,7 +25,15 @@
         </div>
         <div class="divTableRow">
             <div class="divTableCell"><b>Datum poslední revize</b></div>
-            <div class="divTableCell">@item.LastRevisionDate.ToShortDateString()</div>
+            @if (item.LastRevisionDate == default(DateTime))
+            {
+                <div class="divTableCell">?</div>
+            }
+            else
+            {
+                <div class="divTableCell">@item.LastRevisionDate.ToShortDateString()</div>
+            }
+
         </div>
         <div class="divTableRow">
             <div class="divTableCell"><b>Potřebuje revizi?</b></div>

@@ -12,6 +12,8 @@ namespace PptNemocnice.Api.Data
 			CreateMap<Revize, RevizeModel>().ReverseMap();
 
 			CreateMap<Revize, VybaveniSRevizemiModel>().ReverseMap();
+
+			CreateMap<Ukon, UkonModel>().ReverseMap();
 		}
 	}
 }

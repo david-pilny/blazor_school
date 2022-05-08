@@ -21,9 +21,11 @@
   <ItemGroup>
     <None Remove="Data\" />
     <None Remove="Migrations\" />
+    <None Remove="Controller\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
     <Folder Include="Migrations\" />
+    <Folder Include="Controller\" />
   </ItemGroup>
 </Project>

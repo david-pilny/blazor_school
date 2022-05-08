@@ -41,8 +41,8 @@ else if (editingItem != null && editingItem.IsInEditMode == true)
                     <tr>
                         <td><InputText @bind-Value="editingItem.Name" /></td>
                         <td><input @bind="editingItem.BoughtDate" type="date" /></td>
-                        @*<td><input @bind="editingItem.LastRevisionDate" type="date" /></td>*@
-                        <td>@Vybaveni.LastRevisionDate.ToShortDateString()</td>
+                        <td><input @bind="editingItem.LastRevisionDate" type="date" /></td>
+                        @*<td>@Vybaveni.LastRevisionDate.ToShortDateString()</td>*@
                         @if (editingItem.NeedsRevision == true)
                         {
                             <td>Ano</td>

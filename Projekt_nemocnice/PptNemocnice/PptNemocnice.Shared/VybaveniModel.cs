@@ -12,9 +12,9 @@ namespace PptNemocnice.Shared
 
 		public DateTime BoughtDate { get; set; }
 
-		public DateTime LastRevisionDate { get; set; }
+        public DateTime LastRevisionDate { get; set; }
 
-		public bool NeedsRevision => DateTime.Now - LastRevisionDate > TimeSpan.FromDays(365 * 2);
+        public bool NeedsRevision => DateTime.Now - LastRevisionDate > TimeSpan.FromDays(365 * 2);
 
 		public bool? IsInEditMode { get; set; }
 

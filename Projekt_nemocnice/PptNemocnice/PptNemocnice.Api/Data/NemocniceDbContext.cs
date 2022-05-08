@@ -32,5 +32,7 @@ namespace PptNemocnice.Api.Data
 		public DbSet<Vybaveni> Vybaveni => Set<Vybaveni>();
 
 		public DbSet<Revize> Revize => Set<Revize>();
+
+		public DbSet<Ukon> Ukon => Set<Ukon>();
 	}
 }
