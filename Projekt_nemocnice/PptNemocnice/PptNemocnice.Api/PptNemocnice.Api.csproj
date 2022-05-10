@@ -15,17 +15,26 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(Configuration)'=='Release'" >
+    <None  Update="Nemocnice.db"  >
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\PptNemocnice.Shared\PptNemocnice.Shared.csproj" />
   </ItemGroup>
+
   <ItemGroup>
     <None Remove="Data\" />
     <None Remove="Migrations\" />
     <None Remove="Controller\" />
   </ItemGroup>
+
   <ItemGroup>
     <Folder Include="Data\" />
     <Folder Include="Migrations\" />
     <Folder Include="Controller\" />
   </ItemGroup>
+
 </Project>
