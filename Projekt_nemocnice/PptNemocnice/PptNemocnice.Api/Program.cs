@@ -39,6 +39,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.MapGet("/", () => "Hellou");
 
 app.MapGet("/vybaveni/jensrevizi", (int c) =>
 {
