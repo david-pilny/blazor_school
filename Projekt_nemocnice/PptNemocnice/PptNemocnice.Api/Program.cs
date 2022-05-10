@@ -39,59 +39,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-//app.MapGet("/revize/{vyhledavanyRetezec}", (string vyhledavanyRetezec, NemocniceDbContext db) =>
-//{
-//    if (string.IsNullOrWhiteSpace(vyhledavanyRetezec))
-//    {
-//        return Results.Problem("Parametr musí být neprázdný");
-//    }
-//    List<Revize> revizeList = db.Revize.ToList();
-//    var kdeJeRetezec = revizeList.Where(x => x.Name.Contains(vyhledavanyRetezec));
-//    return Results.Json(kdeJeRetezec);
-//});
-
-//app.MapGet("/revize/detail/{Id}", (Guid Id, NemocniceDbContext db, IMapper mapper) =>
-//{
-//    var revizeList = db.Revize.Where(x => x.VybaveniId == Id).ToList();
-//    List<VybaveniSRevizemiModel> list = new();
-
-//    foreach (var item in revizeList)
-//    {
-
-//        VybaveniSRevizemiModel item2 = mapper.Map<VybaveniSRevizemiModel>(item);
-//        list.Add(item2);
-
-//    }
-//    return Results.Json(list);
-//});
-
-//app.MapPost("/revize", (NemocniceDbContext db, VybaveniModel item, IMapper mapper) =>
-//{
-//    Random random = new Random();
-//    int length = 16;
-//    var rString = "";
-
-//    for (var i = 0; i < length; i++)
-//    {
-//        rString += ((char)(random.Next(1, 26) + 64)).ToString().ToLower();
-//    }
-
-//    Revize ent = new();
-//    ent.Id = Guid.Empty;
-//    ent.Name = rString;
-//    ent.DateTime = DateTime.Now;
-//    ent.VybaveniId = item.Id;
-//    db.Revize.Add(ent);
-//    db.SaveChanges();
-//    return Results.Ok();
-
-//});
 
 app.MapGet("/vybaveni/jensrevizi", (int c) =>
 {
     //return seznam.Where(x => !x.NeedsRevision);
 });
-
 
 app.MapPost("/revize/onadd", (NemocniceDbContext db, VybaveniModel item, IMapper mapper) =>
 {
@@ -114,6 +66,8 @@ app.MapPost("/revize/onadd", (NemocniceDbContext db, VybaveniModel item, IMapper
     return Results.Ok();
 
 });
+
+app.Run();
 
 //app.MapGet("/vybaveni", (NemocniceDbContext db, IMapper mapper) =>
 //{
@@ -189,4 +143,50 @@ app.MapPost("/revize/onadd", (NemocniceDbContext db, VybaveniModel item, IMapper
 //});
 
 
-app.Run();
+//app.MapGet("/revize/{vyhledavanyRetezec}", (string vyhledavanyRetezec, NemocniceDbContext db) =>
+//{
+//    if (string.IsNullOrWhiteSpace(vyhledavanyRetezec))
+//    {
+//        return Results.Problem("Parametr musí být neprázdný");
+//    }
+//    List<Revize> revizeList = db.Revize.ToList();
+//    var kdeJeRetezec = revizeList.Where(x => x.Name.Contains(vyhledavanyRetezec));
+//    return Results.Json(kdeJeRetezec);
+//});
+
+//app.MapGet("/revize/detail/{Id}", (Guid Id, NemocniceDbContext db, IMapper mapper) =>
+//{
+//    var revizeList = db.Revize.Where(x => x.VybaveniId == Id).ToList();
+//    List<VybaveniSRevizemiModel> list = new();
+
+//    foreach (var item in revizeList)
+//    {
+
+//        VybaveniSRevizemiModel item2 = mapper.Map<VybaveniSRevizemiModel>(item);
+//        list.Add(item2);
+
+//    }
+//    return Results.Json(list);
+//});
+
+//app.MapPost("/revize", (NemocniceDbContext db, VybaveniModel item, IMapper mapper) =>
+//{
+//    Random random = new Random();
+//    int length = 16;
+//    var rString = "";
+
+//    for (var i = 0; i < length; i++)
+//    {
+//        rString += ((char)(random.Next(1, 26) + 64)).ToString().ToLower();
+//    }
+
+//    Revize ent = new();
+//    ent.Id = Guid.Empty;
+//    ent.Name = rString;
+//    ent.DateTime = DateTime.Now;
+//    ent.VybaveniId = item.Id;
+//    db.Revize.Add(ent);
+//    db.SaveChanges();
+//    return Results.Ok();
+
+//});

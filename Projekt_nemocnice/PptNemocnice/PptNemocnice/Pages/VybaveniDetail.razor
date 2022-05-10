@@ -2,7 +2,7 @@
 @using PptNemocnice
 @inject HttpClient Http
 
-@if (item is null || list is null)
+@if (item is null || list_revize is null)
 {
     <div class="loader"></div>
     return;
@@ -61,7 +61,7 @@
             <div class="divTableCell"><b>Název</b></div>
             <div class="divTableCell"><b>Datum provedení</b></div>
         </div>
-        @foreach (VybaveniSRevizemiModel item in list)
+        @foreach (VybaveniSRevizemiModel item in list_revize)
         {
             <div class="divTableRow">
                 <div class="divTableCell">@item.Id</div>
@@ -80,12 +80,12 @@
 
     VybaveniModel? item { get; set; }
 
-    List<VybaveniSRevizemiModel>? list;
+    List<VybaveniSRevizemiModel>? list_revize;
 
     protected override async Task OnInitializedAsync()
     {
         item = await Http.GetFromJsonAsync<VybaveniModel>($"vybaveni/{Id}");
-        list = await Http.GetFromJsonAsync<List<VybaveniSRevizemiModel>>($"revize/detail/{Id}");
+        list_revize = await Http.GetFromJsonAsync<List<VybaveniSRevizemiModel>>($"revize/detail/{Id}");
         @*
             Moc jsem nepochopil, jak je myšleno to VybaveniSRevizemaModel. Ze zadání vyplývá,
             že musíme namapovat celý ten model tak aby tam byl seznam všech revizí. Nepochopil jsem ale

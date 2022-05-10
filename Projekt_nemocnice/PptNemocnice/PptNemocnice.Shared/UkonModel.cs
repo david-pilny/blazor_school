@@ -2,22 +2,15 @@
 
 public class UkonModel
 {
-    public string Name { get; set; } = "";
-
     public Guid Id { get; set; }
 
-    public static List<RevizeModel> NahodnySeznam(int v)
-    {
-        List<RevizeModel> list = new();
+    public string Name { get; set; } = "";
 
-        Random random = new();
+    public string Description { get; set; } = "";
 
-        for (int i = 0; i < v - 1; i++)
-        {
-            var r = new RevizeModel { Id = Guid.NewGuid(), Name = VybaveniModel.RandomString(15, random) };
-            list.Add(r);
-        }
-        return list;
-    }
+    public DateTime DateTime { get; set; }
+
+    public Guid VybaveniId { get; set; }
+
 }
 
