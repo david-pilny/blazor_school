@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PptNemocnice.Api.Data;
 
@@ -10,9 +11,10 @@ using PptNemocnice.Api.Data;
 namespace PptNemocnice.Api.Migrations
 {
     [DbContext(typeof(NemocniceDbContext))]
-    partial class NemocniceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220517134739_initial Ukony")]
+    partial class initialUkony
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.4");
@@ -33,7 +35,7 @@ namespace PptNemocnice.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Pracovnik");
+                    b.ToTable("Pracvnik");
                 });
 
             modelBuilder.Entity("PptNemocnice.Api.Data.Revize", b =>

@@ -6,6 +6,8 @@ public class Ukon
 {
     public Guid Id { get; set; }
 
+    public string Kod { get; set; } = string.Empty;
+
     public string Name { get; set; } = string.Empty;
 
     public string Description { get; set; } = string.Empty;
@@ -14,7 +16,11 @@ public class Ukon
 
     public Guid VybaveniId { get; set; }
 
+    public Guid PracovnikId { get; set; }
+
     public Vybaveni Vybaveni { get; set; } = null!;
+
+    public Pracovnik Pracovnik { get; set; } = null!;
 
 }
 

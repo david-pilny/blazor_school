@@ -7,6 +7,7 @@
     <div class="loader"></div>
     return;
 }
+
 <h1>@item.Name</h1>
 
 <div class="divTable">
@@ -70,8 +71,29 @@
             </div>
         }
     </div>
-
 </div>
+
+<h3>Provedené úkony</h3>
+<div class="divTable">
+    <div class="divTableBody">
+        <div class="divTableRow">
+            <div class="divTableCell"><b>Detail</b></div>
+            <div class="divTableCell"><b>Kód</b></div>
+            <div class="divTableCell"><b>Datum a čas</b></div>
+            <div class="divTableCell"><b>Provedl</b></div>
+        </div>
+        @foreach (UkonModel item in listUkon)
+        {
+            <div class="divTableRow">
+                <div class="divTableCell detail"><b>@item.Description</b></div>
+                <div class="divTableCell">@item.Kod</div>
+                <div class="divTableCell">@item.DateTime</div>
+                <div class="divTableCell">@item.PracovnikName</div>
+            </div>
+        }
+    </div>
+</div>
+
 
 @code {
 
@@ -82,10 +104,16 @@
 
     List<VybaveniSRevizemiModel>? list_revize;
 
+    List<UkonModel>? listUkon;
+
     protected override async Task OnInitializedAsync()
     {
         item = await Http.GetFromJsonAsync<VybaveniModel>($"vybaveni/{Id}");
         list_revize = await Http.GetFromJsonAsync<List<VybaveniSRevizemiModel>>($"revize/detail/{Id}");
+        listUkon = await Http.GetFromJsonAsync<List<UkonModel>>($"ukon/detail/{Id}");
+
+
+
         @*
             Moc jsem nepochopil, jak je myšleno to VybaveniSRevizemaModel. Ze zadání vyplývá,
             že musíme namapovat celý ten model tak aby tam byl seznam všech revizí. Nepochopil jsem ale
@@ -97,3 +125,19 @@
         *@
     }
 }
+
+<style>
+    .ukonDiv {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .ukonButton {
+        float: right;
+    }
+    .detail {
+        color: #00A170;
+    }
+</style>

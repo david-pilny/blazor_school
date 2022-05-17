@@ -4,13 +4,15 @@ public class UkonModel
 {
     public Guid Id { get; set; }
 
-    public string Name { get; set; } = "";
+    public string Kod { get; set; } = string.Empty;
 
-    public string Description { get; set; } = "";
+    public string Name { get; set; } = string.Empty;
+
+    public string Description { get; set; } = string.Empty;
 
     public DateTime DateTime { get; set; }
 
-    public Guid VybaveniId { get; set; }
+    public string PracovnikName { get; set; } = string.Empty;
 
 }
 

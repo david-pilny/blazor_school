@@ -34,5 +34,7 @@ namespace PptNemocnice.Api.Data
 		public DbSet<Revize> Revize => Set<Revize>();
 
 		public DbSet<Ukon> Ukon => Set<Ukon>();
+
+		public DbSet<Pracovnik> Pracovnik => Set<Pracovnik>();
 	}
 }

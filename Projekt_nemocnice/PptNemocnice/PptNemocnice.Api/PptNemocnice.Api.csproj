@@ -31,10 +31,4 @@
     <Folder Include="Controller\" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(Configuration)'=='Release'" >
-    <None  Update="Nemocnice.db"  >
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-  </None>
-  </ItemGroup>
-
 </Project>
